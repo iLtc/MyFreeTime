@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iLtc and his Free Time</title>
+    <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+    <script src='fullcalendar/lib/jquery.min.js'></script>
+    <script src='fullcalendar/lib/moment.min.js'></script>
+    <script src='fullcalendar/fullcalendar.js'></script>
+    <script type='text/javascript' src='fullcalendar/gcal.js'></script>
+
+    <style type="text/css">
+        html, body {
+            overflow: hidden; /* don't do scrollbars */
+            font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+        }
+
+        #calendar-container {
+            position: fixed;
+            top: 1em;
+            left: 1em;
+            right: 1em;
+            bottom: 1em;
+        }
+
+        @media only screen and (max-width: 600px) {
+            html, body {
+                font-size: 12px;
+            }
+
+            #calendar-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+            .fc-header-toolbar {
+            /*
+            the calendar will be butting up against the edges,
+            but let's scoot in the header's buttons
+            */
+                padding-top: 1em;
+                padding-left: 1em;
+                padding-right: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id='calendar-container'>
+        <div id='calendar'></div>
+    </div>
+
+    <script>
+        let eventSources = [
+            {
+                googleCalendarId: 'dGlhbmNoZW5nYWxhbmx1b0BnbWFpbC5jb20=',
+                // color: 'red',
+                // className: 'Appointment'
+            },
+            {
+                googleCalendarId: 'OHY2MHBpdmRzbjU2aDBqOXVnMjNscXFjNnNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ==',
+                // color: 'orange',
+                // className: 'Life'
+            },
+            {
+                googleCalendarId: 'YTU1aGhwdGlnazFrN3NlbjhtYmw4a3Rqa29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ==',
+                // color: 'blue',
+                // className: 'Study'
+            },
+            {
+                googleCalendarId: 'a21xYmpzbWpxazk2Y2oxYm9wa2RvdXE2OXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ==',
+                // color: 'purple',
+                // className: 'Work'
+            },
+        ];
+
+        let googleCalendarApiKey = 'QUl6YVN5QnYxbThSTS15ckZVRTlXQlp0ZldZU1MyTVZ5RG9LTmkw';
+
+        let formatDate = function(date) {
+            return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2)
+        }
+
+        let nextDay = function(date, x){
+            let now = new Date(date.getTime());
+
+            now.setDate(now.getDate() + ( x + ( 7 - now.getDay())) % 7);
+            return now;
+        }
+
+        let prevDay = function(date, x){
+            let now = new Date(date.getTime());
+
+            now.setDate(now.getDate() + ( x + ( 7 - now.getDay())) % 7 - 7);
+            return now;
+        }
+
+        $(function() {
+            for (var i = 0; i < eventSources.length; i++) {
+                eventSources[i].googleCalendarId = window.atob(eventSources[i].googleCalendarId);
+            }
+            let today = new Date();
+            let endDay = new Date();
+
+            endDay.setDate(endDay.getDate() + 18);
+
+            $('#calendar').fullCalendar({
+                defaultView: 'agendaWeek',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'refresh'
+                },
+                businessHours: true,
+                minTime: '06:00',
+                maxTime: '22:00',
+                validRange: {
+                    start: formatDate(prevDay(today, 1)),
+                    end: formatDate(nextDay(endDay, 7))
+                },
+                height: 'parent',
+                googleCalendarApiKey: window.atob(googleCalendarApiKey),
+                eventSources: eventSources,
+                eventAfterAllRender: function() {
+                    let events = $("#calendar").fullCalendar('clientEvents');
+
+                    if (events.length == 0 || events[0].title) {
+                        return;
+                    }
+
+                    let newEvents = new Array();
+
+                    for (var i = 0; i < events.length; i++) {
+                        let event = events[i];
+
+                        // event.title = event.source.className[0];
+                        event.title = 'Busy';
+                        newEvents.push(event);
+                    }
+
+                    $("#calendar").fullCalendar('updateEvents', newEvents);
+                },
+                customButtons: {
+                    refresh: {
+                        text: 'Refresh',
+                        click: function(){
+                           $('#calendar').fullCalendar('refetchEvents');
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127983225-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'UA-127983225-1');
+    </script>
+
+</body>
+</html>
