@@ -80,6 +80,8 @@
 
         let googleCalendarApiKey = 'QUl6YVN5QnYxbThSTS15ckZVRTlXQlp0ZldZU1MyTVZ5RG9LTmkw';
 
+        var isScheduling = false;
+
         let formatDate = function(date) {
             return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2)
         }
@@ -120,7 +122,7 @@
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'refresh'
+                    right: 'schedule refresh'
                 },
                 businessHours: true,
                 minTime: '06:00',
@@ -157,8 +159,29 @@
                         click: function(){
                            $('#calendar').fullCalendar('refetchEvents');
                         }
+                    },
+                    schedule: {
+                        text: 'Make an Appointment',
+                        click: function(){
+                            if (isScheduling) {
+                                $("#calendar").fullCalendar('option', 'selectable', false);
+
+                                $(".fc-schedule-button").text('Make an Appointment');
+
+                                isScheduling = false;
+                            } else {
+                                $("#calendar").fullCalendar('option', 'selectable', true);
+
+                                $(".fc-schedule-button").text('Cancel');
+
+                                isScheduling = true;
+                            }
+                        }
                     }
-                }
+                },
+                selectable: false,
+                selectHelper: true,
+                selectOverlap: false
             });
         });
     </script>
