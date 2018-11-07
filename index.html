@@ -87,12 +87,20 @@
         let nextDay = function(date, x){
             let now = new Date(date.getTime());
 
+            if (now.getDay() == x - 1) {
+            	return now;
+            }
+
             now.setDate(now.getDate() + ( x + ( 7 - now.getDay())) % 7);
             return now;
         }
 
         let prevDay = function(date, x){
             let now = new Date(date.getTime());
+
+            if (now.getDay() == x - 1) {
+            	return now;
+            }
 
             now.setDate(now.getDate() + ( x + ( 7 - now.getDay())) % 7 - 7);
             return now;
@@ -118,8 +126,8 @@
                 minTime: '06:00',
                 maxTime: '22:00',
                 validRange: {
-                    start: formatDate(prevDay(today, 1)),
-                    end: formatDate(nextDay(endDay, 7))
+                    start: formatDate(prevDay(today, 7)),
+                    end: formatDate(nextDay(endDay, 6))
                 },
                 height: 'parent',
                 googleCalendarApiKey: window.atob(googleCalendarApiKey),
