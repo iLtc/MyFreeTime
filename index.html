@@ -188,10 +188,35 @@
                 selectOverlap: false,
                 select: function(start, end) {
                 	if (!start.hasTime() || !end.hasTime()) {
-                		return
+                		vex.dialog.alert('Please choose a time range instead of a day.');
+                		return;
                 	}
 
-                	alert('selected ' + start.format() + ' to ' + end.format())
+                	if (!start.isSame(end, 'day')) {
+                		vex.dialog.alert('Please choose a time range on the same day.');
+                		return;
+                	}
+
+                	vex.dialog.open({
+					    message: 'Enter details of the appointment:',
+					    input: [
+					    	'<input name="date" type="text" value="Date: ' + start.format("dddd, MMMM Do YYYY") + '" readonly />',
+					    	'<input name="start" type="text" value="Start Time: ' + start.format("h:mm a") + '" readonly />',
+					    	'<input name="end" type="text" value="End Time: ' + end.format("h:mm a") + '" readonly />',
+					        '<input name="name" type="text" placeholder="Your Name" required />',
+					        '<input name="email" type="email" placeholder="Your Email Address" required />',
+					        '<textarea name="detail" placeholder="Appointment Details" rows="5"></textarea>'
+					    ].join(''),
+					    buttons: [
+					        $.extend({}, vex.dialog.buttons.YES, { text: 'Send' }),
+					        $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel' })
+					    ],
+					    callback: function (data) {
+					        if (data) {
+					            console.log(data)
+					        }
+					    }
+					});
                 }
             });
         });
