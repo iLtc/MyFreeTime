@@ -58,22 +58,22 @@
         let eventSources = [
             {
                 googleCalendarId: 'dGlhbmNoZW5nYWxhbmx1b0BnbWFpbC5jb20=',
-                // color: 'red',
+                color: 'red',
                 // className: 'Appointment'
             },
             {
                 googleCalendarId: 'OHY2MHBpdmRzbjU2aDBqOXVnMjNscXFjNnNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ==',
-                // color: 'orange',
+                color: 'red',
                 // className: 'Life'
             },
             {
                 googleCalendarId: 'YTU1aGhwdGlnazFrN3NlbjhtYmw4a3Rqa29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ==',
-                // color: 'blue',
+                color: 'red',
                 // className: 'Study'
             },
             {
                 googleCalendarId: 'a21xYmpzbWpxazk2Y2oxYm9wa2RvdXE2OXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ==',
-                // color: 'purple',
+                color: 'red',
                 // className: 'Work'
             },
         ];
@@ -181,7 +181,14 @@
                 },
                 selectable: false,
                 selectHelper: true,
-                selectOverlap: false
+                selectOverlap: false,
+                select: function(start, end) {
+                	if (!start.hasTime() || !end.hasTime()) {
+                		return
+                	}
+
+                	alert('selected ' + start.format() + ' to ' + end.format())
+                }
             });
         });
     </script>
