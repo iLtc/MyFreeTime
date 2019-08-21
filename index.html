@@ -164,24 +164,24 @@
                            $('#calendar').fullCalendar('refetchEvents');
                         }
                     },
-                    schedule: {
-                        text: 'Make an Appointment',
-                        click: function(){
-                            if (isScheduling) {
-                                $("#calendar").fullCalendar('option', 'selectable', false);
+                    // schedule: {
+                    //     text: 'Make an Appointment',
+                    //     click: function(){
+                    //         if (isScheduling) {
+                    //             $("#calendar").fullCalendar('option', 'selectable', false);
 
-                                $(".fc-schedule-button").text('Make an Appointment');
+                    //             $(".fc-schedule-button").text('Make an Appointment');
 
-                                isScheduling = false;
-                            } else {
-                                $("#calendar").fullCalendar('option', 'selectable', true);
+                    //             isScheduling = false;
+                    //         } else {
+                    //             $("#calendar").fullCalendar('option', 'selectable', true);
 
-                                $(".fc-schedule-button").text('Cancel');
+                    //             $(".fc-schedule-button").text('Cancel');
 
-                                isScheduling = true;
-                            }
-                        }
-                    }
+                    //             isScheduling = true;
+                    //         }
+                    //     }
+                    // }
                 },
                 selectable: false,
                 selectHelper: true,
