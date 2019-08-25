@@ -152,9 +152,8 @@
 
                         // event.title = event.source.className[0];
                         event.title = 'Busy';
+                        event.url = '';
                         newEvents.push(event);
-
-                        console.log(event.url);
                     }
 
                     $("#calendar").fullCalendar('updateEvents', newEvents);
