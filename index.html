@@ -61,7 +61,7 @@
     <script>
         let eventSources = [
             {
-                googleCalendarId: 'dGlhbmNoZW5nYWxhbmx1b0BnbWFpbC5jb20=',
+                googleCalendarId: 'dGlhbmNoZW5nYWxhbmx1b0BnbWFpbC5jb20',
                 color: 'red',
                 className: 'Busy'
             },
@@ -71,17 +71,17 @@
                 className: 'Busy'
             },
             {
-                googleCalendarId: 'YTU1aGhwdGlnazFrN3NlbjhtYmw4a3Rqa29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ==',
+                googleCalendarId: 'bnZyOWJ0dTljcjN2MmFxcmdraWVwZWFiNjBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ',
                 color: 'red',
                 className: 'Busy'
             },
             {
-                googleCalendarId: 'a21xYmpzbWpxazk2Y2oxYm9wa2RvdXE2OXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ==',
+                googleCalendarId: 'Nm9vZHBoMmpscXBlNGRvNDg4YmgydmdzMDBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ',
                 color: 'red',
                 className: 'Busy'
             },
             {
-                googleCalendarId: 'a21xYmpzbWpxazk2Y2oxYm9wa2RvdXE2OXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ==',
+                googleCalendarId: 'dDYwbzFsdmZldjNna2VsNXZrNjFpbmUzbDhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ',
                 color: 'orange',
                 className: 'May Be Busy'
             }
@@ -155,8 +155,7 @@
                     for (var i = 0; i < events.length; i++) {
                         let event = events[i];
 
-                        // event.title = event.source.className[0];
-                        event.title = 'Busy';
+                        event.title = event.source.className[0];
                         event.url = '';
                         newEvents.push(event);
                     }
